@@ -21,6 +21,9 @@ function Header() {
         <Link to="/about" className="">
           About
         </Link>
+        <Link to="/news" className="">
+          News
+        </Link>
       </nav>
 
       <div className="flex justify-center">

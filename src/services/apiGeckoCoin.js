@@ -1,4 +1,6 @@
+// const API_KEY = import.meta.env.VITE_API_KEY || "";
 const API_KEY = "";
+const proxyUrl = "https://cors-anywhere.herokuapp.com/";
 
 export async function getMarketData() {
   const options = {
@@ -11,7 +13,8 @@ export async function getMarketData() {
 
   try {
     const res = await fetch(
-      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd",
+      proxyUrl +
+        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd",
       options
     );
     if (!res.ok) {
@@ -40,8 +43,8 @@ export async function getFullCoinData(coinId, days = 7) {
   try {
     // Run both fetches in parallel
     const [coinRes, chartRes] = await Promise.all([
-      fetch(coinDataURL, options),
-      fetch(chartDataURL, options),
+      fetch(proxyUrl + coinDataURL, options),
+      fetch(proxyUrl + chartDataURL, options),
     ]);
 
     if (!coinRes.ok || !chartRes.ok) {
@@ -70,7 +73,7 @@ export async function getSearchData(query) {
 
   try {
     const res = await fetch(
-      `https://api.coingecko.com/api/v3/search?query=${query}`,
+      proxyUrl + `https://api.coingecko.com/api/v3/search?query=${query}`,
       options
     );
 

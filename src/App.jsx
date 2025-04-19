@@ -17,7 +17,6 @@ function App() {
   const router = createBrowserRouter([
     {
       element: <AppLayout />,
-      errorElement: <Error />,
       children: [
         {
           path: "/",
@@ -45,7 +44,7 @@ function App() {
           element: <About />,
         },
         {
-          path: "/News",
+          path: "/news",
           element: <News />,
         },
       ],
