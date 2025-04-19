@@ -1,89 +1,49 @@
-// const API_KEY = import.meta.env.VITE_API_KEY || "";
-const API_KEY = "";
-const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+const API_BASE = "/api/coinGeckoProxy"; // Points to your Vercel function
 
 export async function getMarketData() {
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      "x-cg-demo-api-key": API_KEY,
-    },
-  };
-
   try {
     const res = await fetch(
-      proxyUrl +
-        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd",
-      options
+      `${API_BASE}?endpoint=coins/markets&vs_currency=usd`
     );
-    if (!res.ok) {
-      throw new Error("Something went wrong with fetching data");
-    }
-    const data = await res.json();
 
-    return data;
+    if (!res.ok) {
+      throw new Error(`API request failed with status ${res.status}`);
+    }
+
+    return await res.json();
   } catch (err) {
-    console.error(err.message || "Something went wrong");
+    console.error("Failed to fetch market data:", err);
+    throw err; // Re-throw to let components handle errors
   }
 }
 
 export async function getFullCoinData(coinId, days = 7) {
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      "x-cg-demo-api-key": API_KEY,
-    },
-  };
-
-  const coinDataURL = `https://api.coingecko.com/api/v3/coins/${coinId}`;
-  const chartDataURL = `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=${days}`;
-
   try {
-    // Run both fetches in parallel
-    const [coinRes, chartRes] = await Promise.all([
-      fetch(proxyUrl + coinDataURL, options),
-      fetch(proxyUrl + chartDataURL, options),
+    const [coinData, chartData] = await Promise.all([
+      fetch(`${API_BASE}?endpoint=coins/${coinId}`).then((res) => res.json()),
+      fetch(
+        `${API_BASE}?endpoint=coins/${coinId}/market_chart&vs_currency=usd&days=${days}`
+      ).then((res) => res.json()),
     ]);
 
-    if (!coinRes.ok || !chartRes.ok) {
-      throw new Error("Failed to fetch coin or chart data");
-    }
-
-    const [coinData, coinChartData] = await Promise.all([
-      coinRes.json(),
-      chartRes.json(),
-    ]);
-
-    return { coinData, coinChartData };
+    return { coinData, coinChartData: chartData };
   } catch (err) {
-    console.error(
-      err.message || "Something went wrong fetching full coin data"
-    );
-    return null;
+    console.error("Failed to fetch full coin data:", err);
+    throw err;
   }
 }
 
 export async function getSearchData(query) {
-  const options = {
-    method: "GET",
-    headers: { accept: "application/json", "x-cg-demo-api-key": API_KEY },
-  };
-
   try {
     const res = await fetch(
-      proxyUrl + `https://api.coingecko.com/api/v3/search?query=${query}`,
-      options
+      `${API_BASE}?endpoint=search&query=${encodeURIComponent(query)}`
     );
 
-    if (!res.ok) {
-      throw new Error("Something went wrong with fetching searched data");
-    }
+    if (!res.ok) throw new Error(`Search failed with status ${res.status}`);
 
-    const data = await res.json();
-    return data;
+    return await res.json();
   } catch (err) {
-    console.error(err.message || "Something went wrong");
+    console.error("Search failed:", err);
+    throw err;
   }
 }
