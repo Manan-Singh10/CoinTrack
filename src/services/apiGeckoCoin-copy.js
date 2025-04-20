@@ -1,4 +1,3 @@
-// const API_KEY = import.meta.env.VITE_API_KEY || "";
 const API_KEY = "";
 const proxyUrl = "https://cors-anywhere.herokuapp.com/";
 

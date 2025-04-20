@@ -1,9 +1,9 @@
 import { useCurrencyStore } from "../../store/currencyStore";
 
 const API_BASE = "/api/coinGeckoProxy"; // Points to Vercel function
-const currency = useCurrencyStore.getState().currency;
 
 export async function getMarketData() {
+  const currency = useCurrencyStore.getState().currency;
   try {
     const res = await fetch(
       `${API_BASE}?endpoint=coins/markets&vs_currency=${currency}`
@@ -21,6 +21,7 @@ export async function getMarketData() {
 }
 
 export async function getFullCoinData(coinId, days = 7) {
+  const currency = useCurrencyStore.getState().currency;
   try {
     const [coinData, chartData] = await Promise.all([
       fetch(`${API_BASE}?endpoint=coins/${coinId}`).then((res) => res.json()),

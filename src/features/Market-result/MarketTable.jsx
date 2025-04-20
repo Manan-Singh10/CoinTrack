@@ -31,13 +31,14 @@ function MarketTable() {
       try {
         setIsLoading(true);
         const data = await getMarketData();
-        setCoins(marketData);
+        setCoins(data);
       } catch (err) {
         console.error("error in getting different currency coins");
       } finally {
         setIsLoading(false);
       }
     }
+    newCurrencyData();
   }, [currency]);
 
   if (isLoading) return <Loader />;

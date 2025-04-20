@@ -36,8 +36,6 @@ function CoinDataTable({ coinData }) {
 
   return (
     <Table>
-      <TableCaption>A list of your recent invoices.</TableCaption>
-
       <TableHeader className="flex justify-center">
         <TableRow className="text-xl">
           <TableHead className="text-stone-200 flex items-center gap-3">
