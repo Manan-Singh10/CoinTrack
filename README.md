@@ -2,7 +2,17 @@
 
 **CoinTrack** is a responsive, modern cryptocurrency tracking app built with React and powered by the CoinGecko API. It allows users to view real-time data of the top cryptocurrencies, explore detailed metrics, visualize historical price trends via line charts, and stay up-to-date with the latest crypto news — all in one place.
 
-![CoinTrack Screenshot](https://github.com/Manan-Singh10/CoinTrack/blob/main/public/preview.png) <!-- Replace with actual screenshot path if available -->
+#### Homepage – Top 25 Coins
+![CoinTrack Homepage](https://github.com/Manan-Singh10/CoinTrack/blob/main/public/CoinTrack-1.png)
+
+#### Search page – With different search results
+![Coin Details](https://github.com/Manan-Singh10/CoinTrack/blob/main/public/CoinTrack-3.png)
+
+#### Detailed Coin View – With Chart
+![Coin Details](https://github.com/Manan-Singh10/CoinTrack/blob/main/public/CoinTrack-4.png)
+
+#### News Section – Latest Crypto News
+![Crypto News](https://github.com/Manan-Singh10/CoinTrack/blob/main/public/CoinTrack-2.png)
 
 ---
 
