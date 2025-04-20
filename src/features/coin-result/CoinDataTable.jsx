@@ -8,14 +8,22 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { coinData } from "../../data/coinData";
+// import { coinData } from "../../data/coinData";
+import { useCurrencyStore } from "../../../store/currencyStore";
 
 function CoinDataTable({ coinData }) {
-  // const {coinData}
+  // function CoinDataTable() {
+  const currency = useCurrencyStore((state) => state.currency);
 
   const details = [
-    { label: "Current Price", value: coinData.market_data.current_price.usd },
-    { label: "Market Cap", value: coinData.market_data.market_cap.usd },
+    {
+      label: `Current Price(${currency})`,
+      value: coinData.market_data.current_price[currency],
+    },
+    {
+      label: `Market Cap(${currency})`,
+      value: coinData.market_data.market_cap[currency],
+    },
     {
       label: "Price Change 24h %",
       value: coinData.market_data.price_change_percentage_24h,

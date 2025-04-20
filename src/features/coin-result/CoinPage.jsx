@@ -1,8 +1,8 @@
 import { Chart as ChartJS, Ticks } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 
-import { CoinChartData } from "../../data/coinChartData";
-import { coinData } from "../../data/coinData";
+// import { CoinChartData as coinChartData } from "../../data/coinChartData";
+// import { coinData } from "../../data/coinData";
 
 import { callback } from "chart.js/helpers";
 import MainLayout from "../../ui/MainLayout";
@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Loader from "../../ui/Loader";
 import { getFullCoinData } from "../../services/apiGeckoCoin";
+import { useCurrencyStore } from "../../../store/currencyStore";
 
 const chartOptions = {
   scales: {
@@ -37,11 +38,13 @@ const chartOptions = {
 };
 
 function CoinPage() {
+  const currency = useCurrencyStore((state) => state.currency);
+
   const [days, setDays] = useState(7);
-  const { coinId } = useParams();
-  const [coinData, setCoinData] = useState(null);
   const [error, setError] = useState(null);
 
+  const { coinId } = useParams();
+  const [coinData, setCoinData] = useState(null);
   const [coinChartData, setCoinChartData] = useState(null);
 
   useEffect(() => {
@@ -95,7 +98,7 @@ function CoinPage() {
     ),
     datasets: [
       {
-        label: "Price in USD",
+        label: `Price in ${currency.toUpperCase()}`,
         data: coinChartData.prices.map((price) => price[1]),
         backgroundColor: "#0999",
         borderColor: "#064ff0",

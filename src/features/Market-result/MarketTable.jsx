@@ -9,14 +9,16 @@ import {
 } from "@/components/ui/table";
 
 import { marketData } from "../../data/marketData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getMarketData } from "../../services/apiGeckoCoin";
 import { Link, useLoaderData } from "react-router-dom";
+import { useCurrencyStore } from "../../../store/currencyStore";
 
 function MarketTable() {
   const coins = useLoaderData();
+  // const [coins, setCoins] = useState(marketData);
+  const currency = useCurrencyStore((state) => state.currency);
 
-  // const coins = marketData;
   const [item, setItem] = useState(0);
 
   const itemsPerPage = 7;

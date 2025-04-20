@@ -48,7 +48,7 @@ function News() {
 
   return (
     <div>
-      <div>
+      <div className="flex flex-col items-center justify-center">
         {isLoading && <Loader />}
         {error && <p className="error">{error}</p>}
         {newsData &&

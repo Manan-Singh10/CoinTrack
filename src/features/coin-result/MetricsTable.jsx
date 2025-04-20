@@ -9,13 +9,17 @@ import {
 } from "@/components/ui/table";
 
 // import { coinData } from "../../data/coinData";
+import { useCurrencyStore } from "../../../store/currencyStore";
 
+// function MetricsTable() {
 function MetricsTable({ coinData }) {
+  const currency = useCurrencyStore((state) => state.currency);
+
   const metrics = [
     { label: "Market Cap Rank", value: coinData.market_cap_rank },
     {
-      label: "24h Trading Volume",
-      value: coinData.market_data.total_volume.usd,
+      label: `24h Trading Volume(${currency})`,
+      value: coinData.market_data.total_volume[currency],
     },
     {
       label: "Circulating Supply",
@@ -23,9 +27,18 @@ function MetricsTable({ coinData }) {
     },
     { label: "Total Supply", value: "Paid" }, // Static fallback
     { label: "Max Supply", value: coinData.market_data.max_supply },
-    { label: "All Time High (ATH)", value: coinData.market_data.ath.usd },
-    { label: "ATH Date", value: coinData.market_data.ath_date.usd },
-    { label: "All Time Low (ATL)", value: coinData.market_data.atl.usd },
+    {
+      label: `All Time High (ATH)(${currency})`,
+      value: coinData.market_data.ath[currency],
+    },
+    {
+      label: `ATH Date (${currency})`,
+      value: coinData.market_data.ath_date[currency],
+    },
+    {
+      label: `All Time Low (ATL)(${currency})`,
+      value: coinData.market_data.atl[currency],
+    },
   ];
 
   return (

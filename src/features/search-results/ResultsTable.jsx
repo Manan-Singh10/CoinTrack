@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { searchData } from "@/data/searchData";
+// import { searchData } from "@/data/searchData";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getSearchData } from "../../services/apiGeckoCoin";
@@ -17,7 +17,9 @@ import Loader from "../../ui/Loader";
 
 function ResultsTable() {
   const { searchQuery } = useSearchQueryStore();
-  const [coins, setCoins] = useState(searchData.coins);
+  const [coins, setCoins] = useState(null);
+  // const coins = searchData.coins;
+
   const [isLoading, setIsLoading] = useState(false);
   const [item, setItem] = useState(0);
 

@@ -8,9 +8,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-// import { coinData } from "../../data/coinData";
+import { coinData } from "../../data/coinData";
 
 function AdditionalInfo({ coinData }) {
+  // function AdditionalInfo() {
   const infos = [
     {
       label: "Description",
