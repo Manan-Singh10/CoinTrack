@@ -15,28 +15,6 @@ import Loader from "../../ui/Loader";
 import { getFullCoinData } from "../../services/apiGeckoCoin";
 import { useCurrencyStore } from "../../../store/currencyStore";
 
-const chartOptions = {
-  scales: {
-    x: {
-      grid: {
-        display: false, // 🔹 Hides vertical grid lines
-      },
-    },
-    y: {
-      grid: {
-        display: false, // 🔹 Hides horizontal grid lines
-      },
-    },
-  },
-  plugins: {
-    legend: {
-      labels: {
-        color: "#fff", // Optional: makes legend text visible on dark backgrounds
-      },
-    },
-  },
-};
-
 function CoinPage() {
   const currency = useCurrencyStore((state) => state.currency);
 
@@ -89,13 +67,59 @@ function CoinPage() {
   if (!coinData || !coinChartData) return;
   <Loader />;
 
+  const chartOptions = {
+    scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+        ticks: {
+          color: "#fff", // Optional: white tick text
+          callback: function (value, index, ticks) {
+            const date = new Date(coinChartData.prices[index][0]);
+            return date.toLocaleDateString("en-US", {
+              day: "2-digit",
+              month: "short",
+            }); // ➜ "17 Apr"
+          },
+        },
+      },
+      y: {
+        grid: {
+          display: false,
+        },
+        ticks: {
+          color: "#fff", // Optional: white tick text
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: "#fff",
+        },
+      },
+      tooltip: {
+        callbacks: {
+          title: function (tooltipItems) {
+            const timestamp = tooltipItems[0].parsed.x;
+            const date = new Date(timestamp);
+            return date.toLocaleString("en-US", {
+              day: "2-digit",
+              month: "short",
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+              hour12: true, // or false for 24hr format
+            }); // ➜ "17 Apr, 01:45:07 PM"
+          },
+        },
+      },
+    },
+  };
+
   const chartData = {
-    labels: coinChartData.prices.map((date) =>
-      new Date(date[0]).toLocaleDateString("en-US", {
-        day: "numeric",
-        month: "short",
-      })
-    ),
+    labels: coinChartData.prices.map((item) => item[0]),
     datasets: [
       {
         label: `Price in ${currency.toUpperCase()}`,
