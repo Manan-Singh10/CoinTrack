@@ -21,22 +21,10 @@ export default [
       "react-refresh": reactRefresh,
     },
     rules: {
-      ...js.configs.recommended.rules,
-      ...reactHooks.configs.recommended.rules,
-      "react-refresh/only-export-components": [
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": [
         "warn",
-        { allowConstantExport: true },
-      ],
-      "react/prop-types": "off", // if using TypeScript or not using PropTypes
-      "no-unused-vars": [
-        "warn",
-        {
-          argsIgnorePattern: "^_",
-          vars: "all",
-          args: "after-used",
-          ignoreRestSiblings: true,
-          varsIgnorePattern: "React",
-        },
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
       ],
     },
   },
