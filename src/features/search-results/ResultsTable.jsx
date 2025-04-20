@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-// import { searchData } from "@/data/searchData";
+import { searchData } from "@/data/searchData";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getSearchData } from "../../services/apiGeckoCoin";
