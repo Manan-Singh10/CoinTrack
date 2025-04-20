@@ -102,7 +102,8 @@ function CoinPage() {
       tooltip: {
         callbacks: {
           title: function (tooltipItems) {
-            const timestamp = tooltipItems[0].parsed.x;
+            const index = tooltipItems[0].dataIndex;
+            const timestamp = coinChartData.prices[index][0]; // Get original timestamp
             const date = new Date(timestamp);
             return date.toLocaleString("en-US", {
               day: "2-digit",
@@ -110,8 +111,9 @@ function CoinPage() {
               hour: "2-digit",
               minute: "2-digit",
               second: "2-digit",
-              hour12: true, // or false for 24hr format
-            }); // ➜ "17 Apr, 01:45:07 PM"
+              hour12: true, // ➜ 01:45:07 PM
+              // hour12: false, // ➜ 13:45:07 (if you want 24-hour format)
+            });
           },
         },
       },
