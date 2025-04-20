@@ -83,7 +83,7 @@ function CoinPage() {
     }
 
     fetchData();
-  }, [coinId, days]);
+  }, [coinId, days, currency]);
 
   if (error) return <Error>{error}</Error>;
   if (!coinData || !coinChartData) return;

@@ -17,7 +17,7 @@ import Loader from "../../ui/Loader";
 
 function ResultsTable() {
   const { searchQuery } = useSearchQueryStore();
-  const [coins, setCoins] = useState(null);
+  const [coins, setCoins] = useState(searchData.coins);
   // const coins = searchData.coins;
 
   const [isLoading, setIsLoading] = useState(false);

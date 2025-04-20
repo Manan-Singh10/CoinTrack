@@ -13,16 +13,35 @@ import { useEffect, useState } from "react";
 import { getMarketData } from "../../services/apiGeckoCoin";
 import { Link, useLoaderData } from "react-router-dom";
 import { useCurrencyStore } from "../../../store/currencyStore";
+import Loader from "../../ui/Loader";
 
 function MarketTable() {
-  const coins = useLoaderData();
-  // const [coins, setCoins] = useState(marketData);
+  // const coins = useLoaderData();
+  const [coins, setCoins] = useState(useLoaderData());
   const currency = useCurrencyStore((state) => state.currency);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [item, setItem] = useState(0);
 
   const itemsPerPage = 7;
   const paginatedData = coins.slice(item, item + itemsPerPage);
+
+  useEffect(() => {
+    async function newCurrencyData() {
+      try {
+        setIsLoading(true);
+        const data = await getMarketData();
+        setCoins(marketData);
+      } catch (err) {
+        console.error("error in getting different currency coins");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  }, [currency]);
+
+  if (isLoading) return <Loader />;
+  if (!coins) return <div>Couldn't get market data</div>;
 
   return (
     <div className="overflow-x-auto custom-scrollbar">

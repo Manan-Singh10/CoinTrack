@@ -28,8 +28,8 @@ function Search() {
       />
       <button type="submit">
         <img
-          src="../public/search-icon.png"
-          className=" w-8 absolute right-1 top-1 p-1 cursor-pointer"
+          src="https://img.icons8.com/?size=100&id=131&format=png&color=7950F2"
+          className=" w-8 h-8 absolute right-1 top-1 p-1 cursor-pointer"
         />
       </button>
     </form>
